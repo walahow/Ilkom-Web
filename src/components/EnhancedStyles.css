@@ -1,0 +1,258 @@
+/* Enhanced Hero Styles - Igloo.inc inspired */
+.enhanced-hero-root {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(ellipse at center, rgba(0, 20, 0, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
+}
+
+.hero-video-bg.enhanced {
+  filter: brightness(0.3) saturate(1.5) contrast(1.2) hue-rotate(90deg);
+  transform: scale(1.1);
+  will-change: transform, scale, filter;
+}
+
+.hero-3d.enhanced {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 255, 100, 0.03) 0%, transparent 70%);
+}
+
+.hero-grid.enhanced {
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(0.5px);
+}
+
+.hero-logo.enhanced {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 14px rgba(0, 255, 100, 0.6)) 
+          drop-shadow(0 0 28px rgba(0, 255, 100, 0.3));
+}
+
+.hero-logo.enhanced:hover {
+  filter: drop-shadow(0 0 20px rgba(0, 255, 100, 0.9)) 
+          drop-shadow(0 0 40px rgba(0, 255, 100, 0.5))
+          drop-shadow(0 0 60px rgba(0, 255, 100, 0.2));
+}
+
+.hero-title.enhanced {
+  background: linear-gradient(135deg, #ffffff 0%, #00ff64 50%, #ffffff 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite;
+  text-shadow: none;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero-paragraph.enhanced {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  z-index: 3;
+}
+
+.scroll-arrow {
+  font-size: 24px;
+  color: #00ff64;
+  text-shadow: 0 0 10px rgba(0, 255, 100, 0.5);
+}
+
+.scroll-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+
+/* Enhanced Glow Effects */
+.glow-white.enhanced {
+  text-shadow: 
+    0 0 5px rgba(255, 255, 255, 0.3),
+    0 0 10px rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(255, 255, 255, 0.1),
+    0 0 40px rgba(255, 255, 255, 0.05);
+}
+
+.glow-green.enhanced {
+  color: #00ff64;
+  text-shadow: 
+    0 0 5px rgba(0, 255, 100, 0.6),
+    0 0 10px rgba(0, 255, 100, 0.4),
+    0 0 20px rgba(0, 255, 100, 0.2),
+    0 0 40px rgba(0, 255, 100, 0.1);
+}
+
+/* Animations */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* Particle effects overlay */
+.enhanced-hero-root::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0, 255, 100, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 255, 100, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 255, 100, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+  animation: pulse 6s ease-in-out infinite;
+}
+
+/* Enhanced responsive design */
+@media (max-width: 900px) {
+  .hero-title.enhanced {
+    font-size: clamp(24px, 8vw, 36px);
+  }
+  
+  .scroll-indicator {
+    bottom: 20px;
+  }
+  
+  .hero-logo.enhanced {
+    width: clamp(48px, 12vw, 72px);
+    height: clamp(48px, 12vw, 72px);
+  }
+}
+
+@media (max-width: 600px) {
+  .enhanced-hero-root::before {
+    opacity: 0.5;
+  }
+  
+  .hero-3d.enhanced {
+    opacity: 0.7;
+  }
+}
+
+/* Performance optimizations */
+.enhanced-hero-root * {
+  will-change: transform;
+}
+
+.hero-video-bg.enhanced {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Additional sections for scroll experience */
+.section-enhanced {
+  min-height: 100vh;
+  padding: 80px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 20, 0, 0.9) 100%);
+}
+
+.section-content {
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.section-text {
+  color: #ffffff;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.section-title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #ffffff 0%, #00ff64 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-description {
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 32px;
+}
+
+.section-features {
+  list-style: none;
+  padding: 0;
+}
+
+.section-features li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 255, 100, 0.2);
+  color: #00ff64;
+  font-weight: 500;
+}
+
+.section-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background: radial-gradient(circle, rgba(0, 255, 100, 0.1) 0%, transparent 70%);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 255, 100, 0.2);
+}
+
+@media (max-width: 900px) {
+  .section-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .section-enhanced {
+    padding: 60px 20px;
+  }
+}

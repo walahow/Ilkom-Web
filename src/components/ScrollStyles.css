@@ -1,0 +1,275 @@
+/* Scroll Sections Styles */
+.section-content.reverse {
+  grid-template-columns: 1fr 1fr;
+  direction: rtl;
+}
+
+.section-content.reverse > * {
+  direction: ltr;
+}
+
+.section-content.centered {
+  grid-template-columns: 1fr;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Navigation Dots */
+.nav-dots {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(0, 255, 100, 0.5);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-dot.active {
+  background: #00ff64;
+  box-shadow: 0 0 20px rgba(0, 255, 100, 0.6);
+  transform: scale(1.2);
+}
+
+.nav-dot:hover {
+  background: rgba(0, 255, 100, 0.7);
+  transform: scale(1.1);
+}
+
+/* Parallax Background */
+.parallax-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.parallax-layer {
+  position: absolute;
+  width: 100%;
+  height: 120%;
+  opacity: 0.1;
+}
+
+.layer-1 {
+  background: radial-gradient(circle at 20% 20%, #00ff64 0%, transparent 50%);
+}
+
+.layer-2 {
+  background: radial-gradient(circle at 80% 80%, #ff6b00 0%, transparent 50%);
+}
+
+.layer-3 {
+  background: radial-gradient(circle at 50% 50%, #6b00ff 0%, transparent 50%);
+}
+
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 30, 0, 0.9) 100%);
+  min-height: 80vh;
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 600px;
+}
+
+.cta-button {
+  background: linear-gradient(135deg, #00ff64 0%, #00cc50 100%);
+  color: #000000;
+  border: none;
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 30px rgba(0, 255, 100, 0.3),
+    0 0 50px rgba(0, 255, 100, 0.2);
+}
+
+/* Enhanced Section Visuals */
+.section-visual {
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-visual canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Animated background patterns */
+.section-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, transparent 49%, rgba(0, 255, 100, 0.02) 50%, transparent 51%),
+    linear-gradient(-45deg, transparent 49%, rgba(0, 255, 100, 0.02) 50%, transparent 51%);
+  background-size: 60px 60px;
+  animation: patternMove 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes patternMove {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 60px 60px, -60px 60px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .nav-dots {
+    right: 20px;
+  }
+  
+  .nav-dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .section-content.reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+  
+  .nav-dots {
+    display: none;
+  }
+  
+  .section-visual {
+    height: 300px;
+  }
+  
+  .cta-button {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-enhanced {
+    padding: 40px 20px;
+  }
+  
+  .section-visual {
+    height: 250px;
+    margin-top: 20px;
+  }
+  
+  .parallax-layer {
+    opacity: 0.05;
+  }
+}
+
+/* Loading and Performance */
+.section-visual {
+  background: radial-gradient(circle, rgba(0, 255, 100, 0.05) 0%, transparent 70%);
+  border: 1px solid rgba(0, 255, 100, 0.1);
+  backdrop-filter: blur(1px);
+}
+
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00ff64 0%, #00cc50 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00cc50 0%, #009940 100%);
+}
+
+/* Text selection */
+::selection {
+  background: rgba(0, 255, 100, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(0, 255, 100, 0.3);
+  color: #ffffff;
+}
+
+/* Focus states for accessibility */
+.nav-dot:focus,
+.cta-button:focus {
+  outline: 2px solid #00ff64;
+  outline-offset: 2px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .parallax-layer {
+    transform: none !important;
+  }
+}
