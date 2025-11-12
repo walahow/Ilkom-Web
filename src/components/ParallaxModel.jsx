@@ -17,6 +17,9 @@ function Model({
   const group = useRef();
   const gltf = useLoader(GLTFLoader, url);
   const mixer = useRef(null);
+  const isDragging = useRef(false);
+  const previousTouch = useRef({ x: 0, y: 0 });
+  const rotationSpeed = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     if (!group.current) return;
@@ -74,7 +77,93 @@ function Model({
 
   useFrame((_, delta) => {
     if (mixer.current) mixer.current.update(delta);
+    
+    if (!isDragging.current) {
+      // Auto-rotation when not being dragged
+      if (group.current) {
+        group.current.rotation.y += 0.005;
+        
+        // Apply momentum
+        group.current.rotation.x += rotationSpeed.current.x;
+        group.current.rotation.y += rotationSpeed.current.y;
+        
+        // Decay momentum
+        rotationSpeed.current.x *= 0.95;
+        rotationSpeed.current.y *= 0.95;
+      }
+    }
   });
+
+  useEffect(() => {
+    const handleMouseDown = (event) => {
+      isDragging.current = true;
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    };
+
+    const handleMouseMove = (event) => {
+      if (isDragging.current && group.current) {
+        const movementX = event.movementX || 0;
+        const movementY = event.movementY || 0;
+        
+        rotationSpeed.current.y = movementX * 0.005;
+        rotationSpeed.current.x = movementY * 0.005;
+        
+        group.current.rotation.y += rotationSpeed.current.y;
+        group.current.rotation.x += rotationSpeed.current.x;
+      }
+    };
+
+    const handleMouseUp = () => {
+      isDragging.current = false;
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    const handleTouchStart = (event) => {
+      isDragging.current = true;
+      const touch = event.touches[0];
+      previousTouch.current = { x: touch.clientX, y: touch.clientY };
+    };
+
+    const handleTouchMove = (event) => {
+      if (isDragging.current && group.current) {
+        const touch = event.touches[0];
+        const movementX = touch.clientX - previousTouch.current.x;
+        const movementY = touch.clientY - previousTouch.current.y;
+        
+        rotationSpeed.current.y = movementX * 0.005;
+        rotationSpeed.current.x = movementY * 0.005;
+        
+        group.current.rotation.y += rotationSpeed.current.y;
+        group.current.rotation.x += rotationSpeed.current.x;
+        
+        previousTouch.current = { x: touch.clientX, y: touch.clientY };
+      }
+    };
+
+    const handleTouchEnd = () => {
+      isDragging.current = false;
+    };
+
+    if (group.current) {
+      group.current.addEventListener('mousedown', handleMouseDown);
+      group.current.addEventListener('touchstart', handleTouchStart);
+      group.current.addEventListener('touchmove', handleTouchMove);
+      group.current.addEventListener('touchend', handleTouchEnd);
+    }
+
+    return () => {
+      if (group.current) {
+        group.current.removeEventListener('mousedown', handleMouseDown);
+        group.current.removeEventListener('touchstart', handleTouchStart);
+        group.current.removeEventListener('touchmove', handleTouchMove);
+        group.current.removeEventListener('touchend', handleTouchEnd);
+      }
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
 
   return <primitive ref={group} object={gltf.scene} scale={scale} />;
 }

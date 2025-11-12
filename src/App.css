@@ -100,6 +100,11 @@ body { display: block; place-items: normal; overflow: hidden; }
   height: clamp(54px, 8vw, 96px);
   border-radius: 50%;
   filter: drop-shadow(0 0 14px rgba(0, 157, 10, 0.45));
+  transition: filter 0.3s ease;
+}
+
+.hero-logo:hover {
+  filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.8));
 }
 
 .hero-title {
@@ -155,8 +160,24 @@ body { display: block; place-items: normal; overflow: hidden; }
 }
 
 /* Glow helpers */
-.glow-white { text-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 0 0 24px rgba(255, 255, 255, 0.2); }
-.glow-green { color: #009D0A; text-shadow: 0 0 12px rgba(0, 157, 10, 0.5), 0 0 24px rgba(0, 157, 10, 0.35); }
+.glow-white { 
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 0 0 24px rgba(255, 255, 255, 0.2);
+  transition: text-shadow 0.3s ease;
+}
+
+.glow-white:hover {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
+}
+
+.glow-green { 
+  color: #009D0A; 
+  text-shadow: 0 0 12px rgba(0, 157, 10, 0.5), 0 0 24px rgba(0, 157, 10, 0.35);
+  transition: text-shadow 0.3s ease;
+}
+
+.glow-green:hover {
+  text-shadow: 0 0 20px rgba(0, 255, 0, 0.7), 0 0 40px rgba(0, 255, 0, 0.5);
+}
 
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; gap: 20px; }
