@@ -44,7 +44,7 @@ export default function Hero() {
 
             <ParallaxModel
                 url="/models/mymodel.glb"
-                intitialRotation={[0, 0, 0]}
+                initialRotation={[0, 0, 0]}
                 position={[0, -40, 0]}
                 scale={3}
                 cameraZ={220}
