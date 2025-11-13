@@ -4,6 +4,9 @@ import Hero from "./components/Hero.jsx";
 import { AnimatePresence, motion } from "framer-motion";
 const VisiMisi = lazy(() => import("./pages/VisiMisi.jsx"));
 const Sejarah = lazy(() => import("./pages/Sejarah.jsx"));
+const ParallaxModel = lazy(() => import("./components/ParallaxModel.jsx"));
+const StrukturOrganisasi = lazy(() => import("./pages/StrukturOrganisasi.jsx"));
+
 
 function App() {
   const [route, setRoute] = useState(() => window.location.hash || "#/home");
@@ -17,6 +20,7 @@ function App() {
   // normalize route matching (case-insensitive, accept hashes like "#/visimisi" or "#visimisi")
   const isVisi = String(route).toLowerCase().includes("visimisi");
   const isSejarah = String(route).toLowerCase().includes("sejarah");
+  const isStruktur = String(route).toLowerCase().includes("strukturorganisasi");
 
   // Use AnimatePresence to animate route changes
   return (
@@ -58,6 +62,24 @@ function App() {
             }
           >
             <Sejarah />
+          </Suspense>
+        </motion.div>
+      ) : isStruktur ? (
+        <motion.div
+          key="struktur"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -40 }}
+          transition={{ duration: 0.45, ease: "easeInOut" }}
+        >
+          <Suspense
+            fallback={
+              <div style={{ padding: 24, color: "#fff", textAlign: "center" }}>
+                Memuat halaman...
+              </div>
+            }
+          >
+            <StrukturOrganisasi />
           </Suspense>
         </motion.div>
       ) : (

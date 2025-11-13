@@ -205,3 +205,17 @@ body { display: block; place-items: normal; overflow: auto; }
   .hero-grid { grid-template-columns: 1fr; gap: 20px; }
   .hero-right { align-items: flex-start; text-align: left; }
 }
+
+/* Struktur button used on Hero to open StrukturOrganisasi */
+.struktur-btn {
+  margin-top: 8px;
+  background: linear-gradient(180deg,#0ea33a,#087e24);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.struktur-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
