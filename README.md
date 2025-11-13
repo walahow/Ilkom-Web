@@ -16,4 +16,5 @@ npm install
 npm run dev
 
 modify dari Hansel
-- Page bisa di scroll dan 3d stay di page atas
+- Page bisa di scroll dan 3d stay di page atas (ceknya perubahan di hero sama app.css)
+  
