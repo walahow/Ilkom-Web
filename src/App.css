@@ -6,7 +6,8 @@
 }
 
 html, body, #root { height: 100%; }
-body { display: block; place-items: normal; overflow: hidden; }
+/* allow normal page scrolling */
+body { display: block; place-items: normal; overflow: auto; }
 
 .site-logo {
   position: fixed;
@@ -114,11 +115,32 @@ body { display: block; place-items: normal; overflow: hidden; }
   font-weight: 700;
 }
 
+/* subtle glow animation for Ilmu Komputer title */
+@keyframes heroGlow {
+  0% { text-shadow: 0 0 6px rgba(74,105,255,0.06); }
+  50% { text-shadow: 0 0 18px rgba(74,105,255,0.18); }
+  100% { text-shadow: 0 0 6px rgba(74,105,255,0.06); }
+}
+.hero-title { animation: heroGlow 4s ease-in-out infinite; }
+
 .hero-copy {
   color: #FFFFFF;
   font-size: 18px;
   line-height: 1.5;
 }
+
+/* Tombol Visi & Misi sederhana */
+.visi-button {
+  margin-top: 8px;
+  background: linear-gradient(180deg,#0ea33a,#087e24);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.visi-button:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
 
 .hero-right {
   display: flex;

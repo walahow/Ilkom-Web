@@ -71,6 +71,35 @@ export default function Hero() {
             <div>SSO UNIVERSITAS NEGERI MEDAN.</div>
             <div>All Rights Reserved.</div>
           </div>
+          {}
+          <div style={{ marginTop: 14, display: "flex", gap: "10px", flexWrap: "wrap" }}>
+            <a
+              href="#/visimisi"
+              className="visi-button"
+              role="button"
+              aria-label="Buka halaman Visi dan Misi"
+              onClick={(e) => {
+                if (typeof window !== "undefined") {
+                  window.location.hash = "#/visimisi";
+                }
+              }}
+            >
+              Visi & Misi
+            </a>
+            <a
+              href="#/sejarah"
+              className="visi-button"
+              role="button"
+              aria-label="Buka halaman Sejarah"
+              onClick={(e) => {
+                if (typeof window !== "undefined") {
+                  window.location.hash = "#/sejarah";
+                }
+              }}
+            >
+              Sejarah
+            </a>
+          </div>
         </div>
 
         <div className="hero-right">

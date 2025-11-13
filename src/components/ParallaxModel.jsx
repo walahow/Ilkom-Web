@@ -43,7 +43,11 @@ function Model({
       video.play();
 
       const texture = new THREE.VideoTexture(video);
-      texture.encoding = THREE.sRGBEncoding;
+      // Newer three.js versions use ColorSpace constants instead of the old encoding names
+      // Use bracket access to avoid static bundler rewriting/named-import resolution
+      if (THREE['SRGBColorSpace'] !== undefined) {
+        texture.colorSpace = THREE['SRGBColorSpace'];
+      }
       texture.needsUpdate = true;
       texture.flipY = false;
 
