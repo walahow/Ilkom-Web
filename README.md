@@ -14,3 +14,6 @@ cd Ilkom-Web
 
 npm install
 npm run dev
+
+modify dari Hansel
+- Page bisa di scroll dan 3d stay di page atas
