@@ -1,30 +1,39 @@
 import React from 'react';
-import './Sejarah.css'; 
-
 import iconSejarah from '/src/assets/sejarah.png'; 
 
 const Sejarah = () => {
+    const cardWrapperStyles = {
+        width: '100%',
+        maxWidth: '900px',
+        margin: '0 auto',
+        zIndex: 10,
+    };
+
+    const scrollBoxStyles = {
+        maxHeight: '60vh',
+    };
+
     return (
-        <div className="vm-container">
-            <div className="vm-video-bg-wrapper">
-                <video autoPlay loop muted playsInline className="vm-video-bg">
+        <div className="glass-page">
+            <div className="glass-video-bg-wrapper">
+                <video autoPlay loop muted playsInline className="glass-video-bg">
                     <source src="/videos/background.mp4" type="video/mp4" />
                 </video>
             </div>
 
-            <div className="vm-background-grid"></div>
+            <div className="glass-background-grid"></div>
 
-            <div className="vm-header">
-                <div className="vm-header-left">
-                    <img src="/Lambang_Universitas_Negeri_Medan.png" alt="Lambang Universitas Negeri Medan" className="vm-univ-logo" />
-                    <div className="vm-univ-text">
+            <div className="glass-header">
+                <div className="glass-header-left">
+                    <img src="/Lambang_Universitas_Negeri_Medan.png" alt="Lambang Universitas Negeri Medan" className="glass-header-logo" />
+                    <div className="glass-header-text">
                         Ilmu<br />Komputer
                     </div>
                 </div>
 
-                <h1 className="vm-title">SEJARAH</h1>
+                <h1 className="glass-title">SEJARAH</h1>
 
-                <div className="vm-header-dots" aria-hidden>
+                <div className="glass-header-dots" aria-hidden>
                     <span></span>
                     <span></span>
                     <span></span>
@@ -32,21 +41,14 @@ const Sejarah = () => {
             </div>
 
             {/* Konten utama halaman sejarah */}
-            <div className="sejarah-content">
-                
-                {/* Ini adalah "kartu kaca" utama yang membungkus semuanya */}
-                <div className="sejarah-card">
-
-                    {/* Bagian header di dalam kartu (untuk ikon + judul) */}
-                    <div className="sejarah-card-header">
-                        <img src={iconSejarah} alt="Ikon Sejarah" className="sejarah-icon" />
+            <div style={{ width: '100%', zIndex: 10 }}>
+                <div className="glass-panel" style={cardWrapperStyles}>
+                    <div className="glass-panel-header">
+                        <img src={iconSejarah} alt="Ikon Sejarah" className="glass-panel-icon" />
                         <h2>Perjalanan Kami Dimulai</h2>
                     </div>
 
-                    {/* INI BAGIAN PENTING: Area Teks yang Bisa di-Scroll 
-                      Ganti semua paragraf di bawah ini dengan 3.215 kata Anda
-                    */}
-                    <div className="sejarah-text-scrollbox">
+                    <div className="glass-scrollbox" style={scrollBoxStyles}>
                         <p>
                             Kebutuhan guru bidang studi matematika dan ilmu pengetahuan alam 
                             sangat mendesak pada tahun 1950-an menjadi faktor pendorong lahirnya 
@@ -85,7 +87,7 @@ const Sejarah = () => {
             </div>
             {/* Tombol kembali di kiri bawah (sama seperti VisiMisi) */}
             <button
-                className="vm-back-bottom"
+                className="glass-back-bottom"
                 onClick={() => {
                     if (typeof window !== "undefined") {
                         try {

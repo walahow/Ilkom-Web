@@ -113,6 +113,34 @@ export default function Hero() {
             >
               Struktur Organisasi
             </a>
+
+            <a
+              href="#/dosen"
+              className="visi-button"
+              role="button"
+              aria-label="Buka halaman Profil Dosen"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.location.hash = "#/dosen";
+                }
+              }}
+            >
+              Profil Dosen
+            </a>
+
+            <a
+              href="#/berita"
+              className="visi-button"
+              role="button"
+              aria-label="Buka halaman Berita Kampus"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.location.hash = "#/berita";
+                }
+              }}
+            >
+              Berita Kampus
+            </a>
           </div>
         </div>
 

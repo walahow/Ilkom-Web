@@ -6,6 +6,8 @@ const VisiMisi = lazy(() => import("./pages/VisiMisi.jsx"));
 const Sejarah = lazy(() => import("./pages/Sejarah.jsx"));
 const ParallaxModel = lazy(() => import("./components/ParallaxModel.jsx"));
 const StrukturOrganisasi = lazy(() => import("./pages/StrukturOrganisasi.jsx"));
+const DosenProfile = lazy(() => import("./pages/DosenProfile.jsx"));
+const BeritaKampus = lazy(() => import("./pages/BeritaKampus.jsx"));
 
 
 function App() {
@@ -20,7 +22,10 @@ function App() {
   // normalize route matching (case-insensitive, accept hashes like "#/visimisi" or "#visimisi")
   const isVisi = String(route).toLowerCase().includes("visimisi");
   const isSejarah = String(route).toLowerCase().includes("sejarah");
-  const isStruktur = String(route).toLowerCase().includes("strukturorganisasi");
+  const normalized = String(route).toLowerCase();
+  const isStruktur = normalized.includes("strukturorganisasi");
+  const isDosen = normalized.includes("dosen");
+  const isBerita = normalized.includes("berita");
 
   // Use AnimatePresence to animate route changes
   return (
@@ -80,6 +85,42 @@ function App() {
             }
           >
             <StrukturOrganisasi />
+          </Suspense>
+        </motion.div>
+      ) : isDosen ? (
+        <motion.div
+          key="dosen"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -40 }}
+          transition={{ duration: 0.45, ease: "easeInOut" }}
+        >
+          <Suspense
+            fallback={
+              <div style={{ padding: 24, color: "#fff", textAlign: "center" }}>
+                Memuat halaman...
+              </div>
+            }
+          >
+            <DosenProfile />
+          </Suspense>
+        </motion.div>
+      ) : isBerita ? (
+        <motion.div
+          key="berita"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -40 }}
+          transition={{ duration: 0.45, ease: "easeInOut" }}
+        >
+          <Suspense
+            fallback={
+              <div style={{ padding: 24, color: "#fff", textAlign: "center" }}>
+                Memuat halaman...
+              </div>
+            }
+          >
+            <BeritaKampus />
           </Suspense>
         </motion.div>
       ) : (

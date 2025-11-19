@@ -219,3 +219,4 @@ body { display: block; place-items: normal; overflow: auto; }
 }
 
 .struktur-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+
