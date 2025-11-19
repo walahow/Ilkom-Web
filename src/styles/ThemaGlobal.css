@@ -1,0 +1,149 @@
+/* src/styles/GlobalTheme.css */
+
+/* 1. Font & Variabel (Pindahkan dari file lama) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --color-bg: #0B0A1B;
+    --color-text: #E0E0E0;
+    --color-primary-glow: rgba(74, 105, 255, 0.3);
+    --color-primary: #4A69FF;
+    --color-card-bg: rgba(25, 27, 46, 0.7);
+}
+
+body {
+    margin: 0;
+    background-color: var(--color-bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text);
+    overflow-x: hidden;
+}
+
+/* 2. Layout Utama */
+.layout-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.layout-background-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(to right, rgba(74, 105, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(74, 105, 255, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none; /* Agar tidak mengganggu klik */
+}
+
+/* 3. Header Standar */
+.layout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    z-index: 10;
+    position: relative;
+}
+
+.header-title h1 {
+    color: #FFFFFF;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* Tombol Kembali */
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+}
+
+.back-btn:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+/* 4. Gaya Kartu Kaca (Global) */
+.glass-card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-primary-glow);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 30px rgba(74, 105, 255, 0.2);
+}
+
+/* ... kode GlobalTheme.css lainnya ... */
+
+/* Tambahkan ini di paling bawah untuk animasi Chart */
+@keyframes float {
+    0% { transform: translate(-50%, -50%) translateY(0px); }
+    50% { transform: translate(-50%, -50%) translateY(-15px); }
+    100% { transform: translate(-50%, -50%) translateY(0px); }
+}
+
+/* Helper class untuk animasi (opsional, atau bisa pakai inline style nanti) */
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+/* src/styles/GlobalTheme.css */
+
+/* ... (kode font dan root variable tetap sama) ... */
+
+/* --- BACKGROUND VIDEO --- */
+.layout-video-wrapper {
+    position: fixed; /* PENTING: Agar video diam saat scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Paling belakang */
+    overflow: hidden;
+}
+
+.layout-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Agar video menutupi layar tanpa gepeng */
+}
+
+/* --- GRID OVERLAY --- */
+.layout-background-grid {
+    position: fixed; /* Ubah jadi fixed juga */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Grid ini akan menimpa video, memberikan efek "tekstur" */
+    background-image: 
+        linear-gradient(to right, rgba(74, 105, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(74, 105, 255, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1; /* Di atas video, tapi di bawah konten */
+    pointer-events: none;
+}
+
+/* ... (sisa kode layout-header, glass-card, dll tetap sama) ... */
