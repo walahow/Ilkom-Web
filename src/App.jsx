@@ -7,10 +7,10 @@ import Hero from "./components/Hero.jsx";
 function App() {
   return (
     <>
-      <LoadingOverlay 
+      {/*<LoadingOverlay 
         loadingDuration={1800} // Durasi progress bar 1 detik
         logoSrc="/Lambang_Universitas_Negeri_Medan.png"
-      />
+      />*/}
       <Hero />
     </>
   );

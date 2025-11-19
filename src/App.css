@@ -1,3 +1,9 @@
+/*
+==================== App.css ====================
+Copy seluruh CSS dibawah ini ke file App.css
+*/
+
+/* Reset */
 #root {
   max-width: none;
   margin: 0;
@@ -5,85 +11,73 @@
   text-align: left;
 }
 
-html, body, #root { height: 100%; }
-body { display: block; place-items: normal; overflow: hidden; }
-
-.site-logo {
-  position: fixed;
-  top: 24px;
-  left: 24px;
-  z-index: 50;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  color: #e5ffe5;
-  text-shadow: 0 0 12px rgba(0, 255, 100, 0.35);
+html, body, #root { 
+  height: 100%; 
+  margin: 0;
+  padding: 0;
 }
 
-.site-logo img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  box-shadow: 0 0 16px rgba(0, 255, 100, 0.3);
+body { 
+  display: block; 
+  place-items: normal; 
+  overflow: hidden;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
-.page {
-  position: relative;
-  z-index: 1; /* Di atas canvas yang pointer-events:none */
-}
-
-.section {
-  min-height: 100vh;
-  padding: 48px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.note-left {
-  align-self: start;
-  justify-self: start;
-  color: #e0e0e0;
-}
-
-.note-right {
-  align-self: start;
-  justify-self: end;
-  color: #7aff7a;
-}
-
-.spacer {
-  height: 120vh;
-}
-
+/* Hero Root */
 .hero-root {
   position: relative;
   overflow: hidden;
   height: 100vh;
   width: 100%;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
 }
 
+/* 3D Wrapper */
+.hero-3d-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: auto; /* Canvas bisa menerima klik */
+}
+
+.hero-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  touch-action: none;
+  pointer-events: auto !important; /* PENTING: Pastikan canvas bisa diklik */
+  cursor: pointer; /* Tampilkan cursor pointer */
+}
+
+canvas {
+  pointer-events: auto !important; /* Force canvas clickable */
+  outline: none;
+}
+
+/* Hero Grid */
 .hero-grid {
   width: 100%;
   max-width: none;
-  padding: clamp(12px, 6vw, 72px) clamp(24px, 10vw, 140px) clamp(24px, 10vw, 140px);
+  padding: clamp(16px, 6vw, 72px) clamp(24px, 6vw, 140px);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
   height: 100%;
   box-sizing: border-box;
   position: relative;
-  z-index: 1; 
-  font-family: 'IBM Plex Mono';
+  z-index: 2;
+  font-family: 'IBM Plex Mono', monospace;
+  pointer-events: none; /* PENTING: Biar klik tembus ke canvas! */
 }
 
-.hero-3d {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+.hero-grid * {
+  pointer-events: auto; /* Tapi elemen di dalam tetap bisa diklik */
 }
 
+/* Hero Left */
 .hero-left {
   display: flex;
   flex-direction: column;
@@ -94,6 +88,7 @@ body { display: block; place-items: normal; overflow: hidden; }
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .hero-logo {
@@ -104,8 +99,8 @@ body { display: block; place-items: normal; overflow: hidden; }
 }
 
 .hero-title {
-  font-family: 'IBM Plex Mono';
-  font-size: 36px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(24px, 5vw, 36px);
   line-height: 1.1;
   color: #FFFFFF;
   font-weight: 700;
@@ -113,10 +108,11 @@ body { display: block; place-items: normal; overflow: hidden; }
 
 .hero-copy {
   color: #FFFFFF;
-  font-size: 16px;
+  font-size: clamp(14px, 2vw, 16px);
   line-height: 1.5;
 }
 
+/* Hero Right */
 .hero-right {
   display: flex;
   flex-direction: column;
@@ -128,39 +124,198 @@ body { display: block; place-items: normal; overflow: hidden; }
 .hero-console {
   color: #009D0A;
   font-weight: 500;
-  font-size: 16px;
+  font-size: clamp(14px, 2vw, 16px);
 }
 
 .hero-paragraph {
   color: #FFFFFF;
-  max-width: min(38ch, 48vw);
-  font-size: 16px;
+  max-width: min(38ch, 90vw);
+  font-size: clamp(14px, 2vw, 16px);
 }
 
-.hero-video-bg-wrapper {
+/* Glow Effects */
+.glow-white { 
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 0 0 24px rgba(255, 255, 255, 0.2); 
+}
+
+.glow-green { 
+  color: #009D0A; 
+  text-shadow: 0 0 12px rgba(0, 157, 10, 0.5), 0 0 24px rgba(0, 157, 10, 0.35); 
+}
+
+/* Loading Screen */
+.loading-screen {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  color: #39ff14;
+  font-family: 'IBM Plex Mono', monospace;
+  z-index: 10;
+}
+
+.loading-text {
+  font-size: 18px;
+  margin-bottom: 16px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(57, 255, 20, 0.2);
+  border-radius: 2px;
   overflow: hidden;
-  z-index: -1;
 }
 
-.hero-video-bg {
-  width: 100%;
+.loading-progress {
+  width: 50%;
   height: 100%;
-  object-fit: cover;
-  filter: brightness(0.45) saturate(1.2);
-  transform: translateY(-10px);
-  will-change: transform, scale;
+  background: #39ff14;
+  animation: loading 1s ease-in-out infinite;
 }
 
-/* Glow helpers */
-.glow-white { text-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 0 0 24px rgba(255, 255, 255, 0.2); }
-.glow-green { color: #009D0A; text-shadow: 0 0 12px rgba(0, 157, 10, 0.5), 0 0 24px rgba(0, 157, 10, 0.35); }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
 
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+
+/* Error Screen */
+.error-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ff4444;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 20px;
+  text-align: center;
+  z-index: 10;
+}
+
+.error-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.error-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.error-description {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 24px;
+}
+
+.error-button {
+  padding: 12px 24px;
+  background: #39ff14;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.error-button:hover {
+  transform: scale(1.05);
+}
+
+/* Popup Styles */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+}
+
+.popup-content {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 32px;
+  border-radius: 16px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  max-width: 90%;
+  width: 400px;
+  border: 2px solid #39ff14;
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
+}
+
+.popup-label {
+  font-size: 14px;
+  color: #39ff14;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.popup-title {
+  font-size: 28px;
+  margin: 0 0 16px 0;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+}
+
+.popup-description {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.popup-button {
+  padding: 12px 32px;
+  background: #39ff14;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.popup-button:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile Responsive */
 @media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 20px; }
-  .hero-right { align-items: flex-start; text-align: left; }
+  .hero-grid { 
+    grid-template-columns: 1fr; 
+    gap: 20px; 
+  }
+  
+  .hero-right { 
+    align-items: flex-start; 
+    text-align: left; 
+  }
+  
+  .popup-content {
+    padding: 24px;
+    width: 90%;
+  }
+  
+  .popup-title {
+    font-size: 24px;
+  }
 }

@@ -23,7 +23,7 @@ export default function LoadingOverlay({
                     clearInterval(buildInterval);
                     return 1;
                 }
-                return prev + (0.02 * (2800 / loadingDuration)); // Menyesuaikan kecepatan progress bar
+                return prev + (0.02 * (1800 / loadingDuration)); // Menyesuaikan kecepatan progress bar
             });
         }, 50);
         
