@@ -18,7 +18,7 @@ const lecturers = [
         tags: ['AI', 'Data Science', 'Python'],
         education: ['S3 Informatika – ITB', 'S2 Ilmu Komputer – UI', 'S1 Teknik Informatika – UGM'],
         research: ['Machine Learning', 'Computer Vision', 'Natural Language Processing'],
-        bio: 'Dr. Budi memiliki pengalaman mengajar lebih dari 10 tahun. Beliau aktif mempublikasikan jurnal internasional bereputasi dan menjadi pembicara dalam konferensi teknologi.',
+        bio: 'Dr. Hermawan Syahputra, M.Si. memiliki pengalaman mengajar lebih dari 10 tahun. Beliau aktif mempublikasikan jurnal internasional bereputasi dan menjadi pembicara dalam konferensi teknologi.',
         contacts: [
             { type: 'email', href: 'mailto:budi@unimed.ac.id', icon: <FaEnvelope /> },
             { type: 'scholar', href: '#', icon: <FaBook /> },
