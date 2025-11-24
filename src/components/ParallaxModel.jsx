@@ -321,7 +321,7 @@ export default function ParallaxModel({ url, onObjectClick }) {
           Memberikan pantulan realistis pada material metal/plastik.
           Preset "city" biasanya paling seimbang untuk scene indoor.
         */}
-        <Environment preset="city" environmentIntensity={0.1} />
+        <Environment preset="warehouse" environmentIntensity={0.1} />
         <ambientLight intensity={13.5} color="#A5B1FF" />
 
 
