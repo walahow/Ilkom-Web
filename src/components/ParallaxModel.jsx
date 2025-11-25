@@ -5,9 +5,11 @@ import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { Environment, ContactShadows, BakeShadows } from "@react-three/drei";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import ParticleSystem from "./particles/ParticleSystem";
+import useParticleHover from "./particles/useParticleHover";
 
 // --- KONFIGURASI ---
-const CLICKABLE_OBJECTS = ["ScreenFace", "Mug", "BookMeme", "Poster"];
+const CLICKABLE_OBJECTS = ["LaptopBase", "Mug", "BookMeme"];
 const USE_BBOX_FOR = ["Mug"];
 const DEBUG_SHOW_CLICKABLE_AREAS = false; // Set true jika ingin debug hitbox
 
@@ -44,6 +46,11 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
 
   const clickableGroupsRef = useRef(new Map());
   const hitboxesRef = useRef([]);
+
+  // Particle System Hooks & State
+  const { hoverStates, hoverPoints, handlePointerMove: handleParticleHover } = useParticleHover();
+  const [particleTargets, setParticleTargets] = useState({});
+  const [lastClickedObject, setLastClickedObject] = useState(null);
 
   // ============================================================
   // 1. SETUP VISUAL (LIGHTING, SHADOW, & MATERIAL) DARI GLB
@@ -159,12 +166,17 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
   useEffect(() => {
     clickableGroupsRef.current = findClickableObjects(gltf.scene, CLICKABLE_OBJECTS);
 
-    // Mark meshes as clickable
-    clickableGroupsRef.current.forEach((meshes) => {
+    // Mark meshes as clickable and set particle targets
+    const targets = {};
+    clickableGroupsRef.current.forEach((meshes, name) => {
       meshes.forEach(mesh => {
         mesh.userData.isClickable = true;
       });
+      if (meshes.length > 0) {
+        targets[name] = meshes[0];
+      }
     });
+    setParticleTargets(targets);
 
     hitboxesRef.current.forEach(hitbox => {
       if (hitbox.parent) hitbox.parent.remove(hitbox);
@@ -244,7 +256,10 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
       const hitboxIntersects = raycaster.intersectObjects(hitboxesRef.current, false);
       if (hitboxIntersects.length > 0) {
         const clickedHitbox = hitboxIntersects[0].object;
-        onObjectClick?.(clickedHitbox.userData.clickableObjectName);
+        const name = clickedHitbox.userData.clickableObjectName;
+        onObjectClick?.(name);
+        setLastClickedObject(name);
+        setTimeout(() => setLastClickedObject(null), 1000);
         return;
       }
     }
@@ -265,13 +280,21 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
         clickableGroupsRef.current.forEach((meshes, name) => {
           if (meshes.includes(clickedMesh)) objectName = name;
         });
-        if (objectName) onObjectClick?.(objectName);
+        if (objectName) {
+          onObjectClick?.(objectName);
+          setLastClickedObject(objectName);
+          setTimeout(() => setLastClickedObject(null), 1000);
+        }
       }
     }
   };
 
   const handlePointerMove = (e) => {
     e.stopPropagation();
+
+    // Delegate to particle hover logic
+    handleParticleHover(e, camera, clickableGroupsRef.current);
+
     const firstHit = e.intersections.length > 0 ? e.intersections[0].object : null;
     if (firstHit && firstHit.userData.isClickable) {
       document.body.style.cursor = 'pointer';
@@ -290,7 +313,19 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
       onPointerMove={handlePointerMove}
       onPointerOut={handlePointerOut}
     >
+
       <primitive object={gltf.scene} />
+
+      {Object.entries(particleTargets).map(([name, target]) => (
+        <ParticleSystem
+          key={name}
+          targetObject={target}
+          objectName={name}
+          isHovered={hoverStates[name]}
+          hoverPoint={hoverPoints[name]}
+          isClicked={lastClickedObject === name}
+        />
+      ))}
     </group>
   );
 }
