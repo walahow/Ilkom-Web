@@ -11,15 +11,17 @@ Copy seluruh CSS dibawah ini ke file App.css
   text-align: left;
 }
 
-html, body, #root { 
-  height: 100%; 
+html,
+body,
+#root {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-body { 
-  display: block; 
-  place-items: normal; 
+body {
+  display: block;
+  place-items: normal;
   overflow: hidden;
   font-family: 'IBM Plex Mono', monospace;
 }
@@ -40,20 +42,11 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: 1;
-  pointer-events: auto; /* Canvas bisa menerima klik */
+  pointer-events: auto;
+  /* Canvas bisa menerima klik */
 }
 
 .hero-canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-  touch-action: none;
-  pointer-events: auto !important; /* PENTING: Pastikan canvas bisa diklik */
-  cursor: pointer; /* Tampilkan cursor pointer */
-}
-
-canvas {
-  pointer-events: auto !important; /* Force canvas clickable */
   outline: none;
 }
 
@@ -70,11 +63,13 @@ canvas {
   position: relative;
   z-index: 2;
   font-family: 'IBM Plex Mono', monospace;
-  pointer-events: none; /* PENTING: Biar klik tembus ke canvas! */
+  pointer-events: none;
+  /* PENTING: Biar klik tembus ke canvas! */
 }
 
 .hero-grid * {
-  pointer-events: auto; /* Tapi elemen di dalam tetap bisa diklik */
+  pointer-events: auto;
+  /* Tapi elemen di dalam tetap bisa diklik */
 }
 
 /* Hero Left */
@@ -134,13 +129,13 @@ canvas {
 }
 
 /* Glow Effects */
-.glow-white { 
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 0 0 24px rgba(255, 255, 255, 0.2); 
+.glow-white {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 0 0 24px rgba(255, 255, 255, 0.2);
 }
 
-.glow-green { 
-  color: #009D0A; 
-  text-shadow: 0 0 12px rgba(0, 157, 10, 0.5), 0 0 24px rgba(0, 157, 10, 0.35); 
+.glow-green {
+  color: #009D0A;
+  text-shadow: 0 0 12px rgba(0, 157, 10, 0.5), 0 0 24px rgba(0, 157, 10, 0.35);
 }
 
 /* Loading Screen */
@@ -179,13 +174,25 @@ canvas {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 @keyframes loading {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(300%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(300%);
+  }
 }
 
 /* Error Screen */
@@ -241,11 +248,13 @@ canvas {
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.3);
+  /* Transparent black */
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
+  /* Blur effect */
 }
 
 .popup-content {
@@ -300,21 +309,21 @@ canvas {
 
 /* Mobile Responsive */
 @media (max-width: 900px) {
-  .hero-grid { 
-    grid-template-columns: 1fr; 
-    gap: 20px; 
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
-  
-  .hero-right { 
-    align-items: flex-start; 
-    text-align: left; 
+
+  .hero-right {
+    align-items: flex-start;
+    text-align: left;
   }
-  
+
   .popup-content {
     padding: 24px;
     width: 90%;
   }
-  
+
   .popup-title {
     font-size: 24px;
   }

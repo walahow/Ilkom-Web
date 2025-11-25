@@ -1,3 +1,4 @@
+
 // ==================== ParallaxModel.jsx ====================
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
@@ -7,16 +8,16 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 // --- KONFIGURASI ---
 const CLICKABLE_OBJECTS = ["ScreenFace", "Mug", "BookMeme", "Poster"];
-const USE_BBOX_FOR = ["Mug"]; 
+const USE_BBOX_FOR = ["Mug"];
 const DEBUG_SHOW_CLICKABLE_AREAS = false; // Set true jika ingin debug hitbox
 
 function findClickableObjects(scene, targetNames) {
   const clickableGroups = new Map();
-  
+
   scene.traverse((child) => {
     let current = child;
     let matchedName = null;
-    
+
     while (current) {
       if (targetNames.includes(current.name)) {
         matchedName = current.name;
@@ -24,7 +25,7 @@ function findClickableObjects(scene, targetNames) {
       }
       current = current.parent;
     }
-    
+
     if (matchedName && child.isMesh) {
       if (!clickableGroups.has(matchedName)) {
         clickableGroups.set(matchedName, []);
@@ -32,7 +33,7 @@ function findClickableObjects(scene, targetNames) {
       clickableGroups.get(matchedName).push(child);
     }
   });
-  
+
   return clickableGroups;
 }
 
@@ -40,9 +41,9 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
   const gltf = useLoader(GLTFLoader, url);
   const mixer = useRef(null);
   const { camera, set, size } = useThree();
-  
+
   const clickableGroupsRef = useRef(new Map());
-  const hitboxesRef = useRef([]); 
+  const hitboxesRef = useRef([]);
 
   // ============================================================
   // 1. SETUP VISUAL (LIGHTING, SHADOW, & MATERIAL) DARI GLB
@@ -53,10 +54,10 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
       if (child.isMesh) {
         child.castShadow = true;    // Mesh membuang bayangan
         child.receiveShadow = true; // Mesh menerima bayangan
-        
+
         // Pastikan material merespon environment map (refleksi)
         if (child.material) {
-          child.material.envMapIntensity = 1; 
+          child.material.envMapIntensity = 1;
           child.material.needsUpdate = true;
         }
       }
@@ -64,13 +65,13 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
       // B. Handle Lights (Lampu bawaan dari Blender)
       if (child.isLight) {
         child.castShadow = true; // Paksa lampu menghasilkan bayangan
-        
+
         // Tingkatkan kualitas bayangan
         if (child.shadow) {
-            child.shadow.mapSize.width = 2048; // Resolusi bayangan tinggi
-            child.shadow.mapSize.height = 2048;
-            child.shadow.radius = 15;
-            child.shadow.bias = -0.001; // Mengurangi error visual pada bayangan
+          child.shadow.mapSize.width = 2048; // Resolusi bayangan tinggi
+          child.shadow.mapSize.height = 2048;
+          child.shadow.radius = 15;
+          child.shadow.bias = -0.001; // Mengurangi error visual pada bayangan
         }
       }
     });
@@ -141,12 +142,12 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
 
       const texture = new THREE.VideoTexture(video);
       texture.flipY = false;
-      
+
       screen.material = new THREE.MeshStandardMaterial({
         map: texture,
         // PENTING: Emissive tinggi agar layar "Glowing" saat kena efek Bloom
         emissive: new THREE.Color(0x39ff14),
-        emissiveIntensity: 0.15, 
+        emissiveIntensity: 0.15,
         toneMapped: true,
       });
     }
@@ -157,7 +158,14 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
   // ============================================================
   useEffect(() => {
     clickableGroupsRef.current = findClickableObjects(gltf.scene, CLICKABLE_OBJECTS);
-    
+
+    // Mark meshes as clickable
+    clickableGroupsRef.current.forEach((meshes) => {
+      meshes.forEach(mesh => {
+        mesh.userData.isClickable = true;
+      });
+    });
+
     hitboxesRef.current.forEach(hitbox => {
       if (hitbox.parent) hitbox.parent.remove(hitbox);
       if (hitbox.geometry) hitbox.geometry.dispose();
@@ -182,7 +190,7 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
         const centerX = (localBox.max.x + localBox.min.x) / 2;
         const centerY = (localBox.max.y + localBox.min.y) / 2;
         const centerZ = (localBox.max.z + localBox.min.z) / 2;
-        
+
         const geometry = new THREE.BoxGeometry(width, height, depth);
         const material = new THREE.MeshBasicMaterial({
           color: 0xff00ff,
@@ -198,10 +206,11 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
         hitbox.rotation.set(0, 0, 0);
         hitbox.userData.clickableObjectName = name;
         hitbox.userData.isHitbox = true;
+        hitbox.userData.isClickable = true;
 
         targetMesh.add(hitbox);
         hitboxesRef.current.push(hitbox);
-      } 
+      }
       else if (DEBUG_SHOW_CLICKABLE_AREAS) {
         meshes.forEach(mesh => {
           if (!mesh.userData.isDebugHelper && mesh.geometry) {
@@ -219,13 +228,13 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
 
   const handleClick = (event) => {
     event.stopPropagation();
-    
+
     const x = event.pointer.x;
     const y = event.pointer.y;
-    
+
     camera.updateMatrixWorld(true);
     camera.updateProjectionMatrix();
-    
+
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
     raycaster.params.Mesh.threshold = 0.1;
@@ -261,8 +270,26 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
     }
   };
 
+  const handlePointerMove = (e) => {
+    e.stopPropagation();
+    const firstHit = e.intersections.length > 0 ? e.intersections[0].object : null;
+    if (firstHit && firstHit.userData.isClickable) {
+      document.body.style.cursor = 'pointer';
+    } else {
+      document.body.style.cursor = 'auto';
+    }
+  };
+
+  const handlePointerOut = () => {
+    document.body.style.cursor = 'auto';
+  };
+
   return (
-    <group onClick={handleClick}>
+    <group
+      onClick={handleClick}
+      onPointerMove={handlePointerMove}
+      onPointerOut={handlePointerOut}
+    >
       <primitive object={gltf.scene} />
     </group>
   );
@@ -302,13 +329,13 @@ export default function ParallaxModel({ url, onObjectClick }) {
     <div className="hero-3d-wrapper">
       {!isLoaded && !loadError && <LoadingScreen />}
       {loadError && <ErrorScreen onRetry={handleRetry} />}
-      
+
       <Canvas
         key={retryKey}
         shadows // WAJIB: Mengaktifkan sistem bayangan
-        gl={{ 
-          antialias: true, 
-          alpha: true, 
+        gl={{
+          antialias: true,
+          alpha: true,
           // Menggunakan Tone Mapping standar industri (mirip Blender Filmic)
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 0.1,
@@ -329,17 +356,17 @@ export default function ParallaxModel({ url, onObjectClick }) {
         {/* 5. CONTACT SHADOWS
           Memberikan bayangan halus di lantai agar objek terlihat 'napak'
         */}
-        <ContactShadows 
-            resolution={2048} 
-            scale={10} 
-            blur={15} 
-            opacity={0.5} 
-            far={10} 
-            color="#000000" 
+        <ContactShadows
+          resolution={2048}
+          scale={10}
+          blur={15}
+          opacity={0.5}
+          far={10}
+          color="#000000"
         />
 
         <Suspense fallback={null}>
-          <ModelWithGLBCamera 
+          <ModelWithGLBCamera
             url={url}
             onObjectClick={onObjectClick}
             onLoadComplete={() => setIsLoaded(true)}
