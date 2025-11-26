@@ -12,7 +12,7 @@ export const PARTICLE_CONFIG = {
 
         // Distribution mode: "volume", "surface", "edges"
         distributionMode: "volume",   // Distribusi dalam volume objek
-        distributionScale: 1.1,       // Scale area distribusi (1.0 = pas objek, 1.5 = 50% lebih luas)
+        distributionScale: 1.0,       // Scale area distribusi (1.0 = pas objek, 1.5 = 50% lebih luas)
 
         // Floating animation (idle state) - MORE AGGRESSIVE!
         floatSpeed: 3.5,              // Increased from 0.5 - lebih cepat
@@ -34,12 +34,12 @@ export const PARTICLE_CONFIG = {
 
     // Custom config per objek (override default)
     LaptopBase: {
-        count: 150                   // More particles untuk layar
+        count: 280                   // More particles untuk layar
     },
 
     Mug: {
-        count: 80,
-        distributionScale: 0.9
+        count: 60,
+        distributionScale: 1.0
     },
 
     BookMeme: {
@@ -47,7 +47,7 @@ export const PARTICLE_CONFIG = {
     },
     node_id293_Material_258_0: {
         count: 30,
-        distributionScale: 0.9
+        distributionScale: 1.0
     }
 
 };
