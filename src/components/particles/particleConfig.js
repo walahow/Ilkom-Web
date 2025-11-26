@@ -44,6 +44,10 @@ export const PARTICLE_CONFIG = {
 
     BookMeme: {
         count: 60
+    },
+    node_id293_Material_258_0: {
+        count: 30,
+        distributionScale: 0.9
     }
 
 };

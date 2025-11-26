@@ -9,8 +9,8 @@ import ParticleSystem from "./particles/ParticleSystem";
 import useParticleHover from "./particles/useParticleHover";
 
 // --- KONFIGURASI ---
-const CLICKABLE_OBJECTS = ["LaptopBase", "Mug", "BookMeme"];
-const USE_BBOX_FOR = ["Mug"];
+const CLICKABLE_OBJECTS = ["LaptopBase", "Mug", "BookMeme", "node_id293_Material_258_0"];
+const USE_BBOX_FOR = [""];
 const DEBUG_SHOW_CLICKABLE_AREAS = false; // Set true jika ingin debug hitbox
 
 function findClickableObjects(scene, targetNames) {

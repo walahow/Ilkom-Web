@@ -14,6 +14,10 @@ const modalData = {
     Poster: {
         title: "WALL ART",
         description: "Dekorasi dinding yang memberikan inspirasi visual. \n\nDesain minimalis dengan sentuhan futuristik, merefleksikan visi dan misi program studi dalam bentuk seni grafis."
+    },
+    node_id293_Material_258_0: {
+        title: "Arduino",
+        description: "Alat IoT yang digandrungi komunitas. \n\nAlat yang paling populer untuk mulai belajar Internet of Things."
     }
 };
 
