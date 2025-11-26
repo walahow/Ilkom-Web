@@ -330,14 +330,7 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
   );
 }
 
-function LoadingScreen() {
-  return (
-    <div className="loading-screen">
-      <div className="loading-text">Loading 3D Model...</div>
-      <div className="loading-bar"><div className="loading-progress" /></div>
-    </div>
-  );
-}
+
 
 function ErrorScreen({ onRetry }) {
   return (
@@ -351,18 +344,17 @@ function ErrorScreen({ onRetry }) {
 
 export default function ParallaxModel({ url, onObjectClick }) {
   const [loadError, setLoadError] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+
   const [retryKey, setRetryKey] = useState(0);
 
   const handleRetry = () => {
     setLoadError(false);
-    setIsLoaded(false);
+
     setRetryKey(prev => prev + 1);
   };
 
   return (
     <div className="hero-3d-wrapper">
-      {!isLoaded && !loadError && <LoadingScreen />}
       {loadError && <ErrorScreen onRetry={handleRetry} />}
 
       <Canvas
@@ -404,7 +396,6 @@ export default function ParallaxModel({ url, onObjectClick }) {
           <ModelWithGLBCamera
             url={url}
             onObjectClick={onObjectClick}
-            onLoadComplete={() => setIsLoaded(true)}
             onLoadError={() => setLoadError(true)}
           />
         </Suspense>
