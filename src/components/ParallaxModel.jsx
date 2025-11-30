@@ -240,9 +240,7 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
 
   const handleClick = (event) => {
     event.stopPropagation();
-    import("../utils/AudioManager").then((module) => {
-      module.default.playClick();
-    });
+    // REMOVED: Global playClick() - now only plays on valid hits
 
     const x = event.pointer.x;
     const y = event.pointer.y;
@@ -258,6 +256,11 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
     if (hitboxesRef.current.length > 0) {
       const hitboxIntersects = raycaster.intersectObjects(hitboxesRef.current, false);
       if (hitboxIntersects.length > 0) {
+        // Play click sound for hitbox
+        import("../utils/AudioManager").then((module) => {
+          module.default.playClick();
+        });
+
         const clickedHitbox = hitboxIntersects[0].object;
         const name = clickedHitbox.userData.clickableObjectName;
 
@@ -290,6 +293,11 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
           if (meshes.includes(clickedMesh)) objectName = name;
         });
         if (objectName) {
+          // Play click sound for mesh
+          import("../utils/AudioManager").then((module) => {
+            module.default.playClick();
+          });
+
           setLastClickedObject(objectName);
 
           // Add delay before opening modal
