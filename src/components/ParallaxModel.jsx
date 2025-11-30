@@ -7,6 +7,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import ParticleSystem from "./particles/ParticleSystem";
 import useParticleHover from "./particles/useParticleHover";
+import GlitchController from "./effects/GlitchController";
 
 // --- KONFIGURASI ---
 const CLICKABLE_OBJECTS = ["LaptopBase", "Mug", "BookMeme", "node_id293_Material_258_0"];
@@ -362,14 +363,20 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
       <primitive object={gltf.scene} />
 
       {Object.entries(particleTargets).map(([name, target]) => (
-        <ParticleSystem
-          key={name}
-          targetObject={target}
-          objectName={name}
-          isHovered={hoverStates[name]}
-          hoverPoint={hoverPoints[name]}
-          isClicked={lastClickedObject === name}
-        />
+        <React.Fragment key={name}>
+          <ParticleSystem
+            targetObject={target}
+            objectName={name}
+            isHovered={hoverStates[name]}
+            hoverPoint={hoverPoints[name]}
+            isClicked={lastClickedObject === name}
+          />
+          <GlitchController
+            targets={clickableGroupsRef.current.get(name)}
+            active={lastClickedObject === name}
+            duration={500}
+          />
+        </React.Fragment>
       ))}
     </group>
   );
