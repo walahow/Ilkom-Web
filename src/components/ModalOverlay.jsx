@@ -1,110 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// ==========================================
-// SCRAMBLE TEXT COMPONENT (OPTIMIZED)
-// ==========================================
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
-
-const ScrambleText = ({ text, duration = 0.8, delay = 0, className = "", onComplete }) => {
-    const [displayText, setDisplayText] = useState("");
-
-    useEffect(() => {
-        let frameId;
-        let startTime;
-        let timeoutId;
-
-        const startScramble = () => {
-            startTime = Date.now();
-            const length = text.length;
-
-            const animate = () => {
-                const now = Date.now();
-                const progress = Math.min((now - startTime) / (duration * 1000), 1);
-
-                if (progress < 1) {
-                    let result = "";
-                    // Calculate how many characters should be revealed based on progress
-                    const revealCount = Math.floor(progress * length);
-
-                    for (let i = 0; i < length; i++) {
-                        if (i < revealCount) {
-                            result += text[i];
-                        } else if (text[i] === ' ') {
-                            result += ' '; // Preserve spaces to maintain word wrapping
-                        } else {
-                            // Only scramble a subset of characters to reduce visual noise if needed, 
-                            // but for "matrix" feel we scramble all remaining
-                            result += CHARS[Math.floor(Math.random() * CHARS.length)];
-                        }
-                    }
-                    setDisplayText(result);
-                    frameId = requestAnimationFrame(animate);
-                } else {
-                    setDisplayText(text);
-                    if (onComplete) onComplete();
-                }
-            };
-
-            frameId = requestAnimationFrame(animate);
-        };
-
-        timeoutId = setTimeout(startScramble, delay * 1000);
-
-        return () => {
-            clearTimeout(timeoutId);
-            cancelAnimationFrame(frameId);
-        };
-    }, [text, duration, delay, onComplete]);
-
-    return <span className={className}>{displayText}</span>;
-};
-
-// ==========================================
-// HOVER SCRAMBLE TEXT COMPONENT (INTERACTIVE)
-// ==========================================
-const HoverScrambleText = ({ text, trigger, duration = 0.4, className = "" }) => {
-    const [displayText, setDisplayText] = useState(text);
-
-    useEffect(() => {
-        if (!trigger) {
-            setDisplayText(text);
-            return;
-        }
-
-        let frameId;
-        let startTime = Date.now();
-        const length = text.length;
-
-        const animate = () => {
-            const now = Date.now();
-            const progress = Math.min((now - startTime) / (duration * 1000), 1);
-
-            if (progress < 1) {
-                let result = "";
-                const revealCount = Math.floor(progress * length);
-
-                for (let i = 0; i < length; i++) {
-                    if (i < revealCount) {
-                        result += text[i];
-                    } else {
-                        result += CHARS[Math.floor(Math.random() * CHARS.length)];
-                    }
-                }
-                setDisplayText(result);
-                frameId = requestAnimationFrame(animate);
-            } else {
-                setDisplayText(text);
-            }
-        };
-
-        frameId = requestAnimationFrame(animate);
-
-        return () => cancelAnimationFrame(frameId);
-    }, [trigger, text, duration]);
-
-    return <span className={className}>{displayText}</span>;
-};
+import { ScrambleText, HoverScrambleText } from "./UI/ScrambleText";
 
 // ==========================================
 // MODAL OVERLAY COMPONENT (FULLSCREEN REFINED)
@@ -113,6 +10,10 @@ const ModalOverlay = ({ title, description, onClose }) => {
     // Split description into lines for per-line animation
     const descriptionLines = description.split('\n').filter(line => line.trim() !== "");
     const [isCloseHovered, setIsCloseHovered] = useState(false);
+
+    useEffect(() => {
+        import("../utils/AudioManager").then((module) => module.default.playModalOpen());
+    }, []);
 
     // Animation Config
     const TITLE_DURATION = 1.0;
@@ -168,7 +69,10 @@ const ModalOverlay = ({ title, description, onClose }) => {
                 }}
             >
                 <button
-                    onClick={onClose}
+                    onClick={() => {
+                        import("../utils/AudioManager").then((module) => module.default.playClick());
+                        onClose();
+                    }}
                     onMouseEnter={() => setIsCloseHovered(true)}
                     onMouseLeave={() => setIsCloseHovered(false)}
                     className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"

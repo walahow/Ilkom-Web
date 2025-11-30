@@ -5,7 +5,7 @@ export const PARTICLE_CONFIG = {
     // Default config untuk semua objek
     default: {
         count: 80,                    // Jumlah partikel
-        size: 0.065,                   // Ukuran partikel
+        size: 0.09,                   // Ukuran partikel
         color: 0x39ff14,              // Warna hijau neon
         opacity: 0.6,                 // Transparansi
         emissiveIntensity: 2.0,       // Kekuatan glow

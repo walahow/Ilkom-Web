@@ -240,6 +240,9 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
 
   const handleClick = (event) => {
     event.stopPropagation();
+    import("../utils/AudioManager").then((module) => {
+      module.default.playClick();
+    });
 
     const x = event.pointer.x;
     const y = event.pointer.y;
@@ -257,9 +260,15 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
       if (hitboxIntersects.length > 0) {
         const clickedHitbox = hitboxIntersects[0].object;
         const name = clickedHitbox.userData.clickableObjectName;
-        onObjectClick?.(name);
+
         setLastClickedObject(name);
-        setTimeout(() => setLastClickedObject(null), 1000);
+
+        // Add delay before opening modal
+        setTimeout(() => {
+          onObjectClick?.(name);
+          setLastClickedObject(null);
+        }, 1000); // 1 second delay
+
         return;
       }
     }
@@ -281,13 +290,19 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
           if (meshes.includes(clickedMesh)) objectName = name;
         });
         if (objectName) {
-          onObjectClick?.(objectName);
           setLastClickedObject(objectName);
-          setTimeout(() => setLastClickedObject(null), 1000);
+
+          // Add delay before opening modal
+          setTimeout(() => {
+            onObjectClick?.(objectName);
+            setLastClickedObject(null);
+          }, 1000); // 1 second delay
         }
       }
     }
   };
+
+  const lastHoveredRef = useRef(null);
 
   const handlePointerMove = (e) => {
     e.stopPropagation();
@@ -296,10 +311,32 @@ function ModelWithGLBCamera({ url, onObjectClick, onLoadComplete, onLoadError })
     handleParticleHover(e, camera, clickableGroupsRef.current);
 
     const firstHit = e.intersections.length > 0 ? e.intersections[0].object : null;
+
     if (firstHit && firstHit.userData.isClickable) {
       document.body.style.cursor = 'pointer';
+
+      // Find the logical object name (group name)
+      let objectName = null;
+      // Check if it's a hitbox
+      if (firstHit.userData.isHitbox) {
+        objectName = firstHit.userData.clickableObjectName;
+      } else {
+        // Check which group this mesh belongs to
+        clickableGroupsRef.current.forEach((meshes, name) => {
+          if (meshes.includes(firstHit)) objectName = name;
+        });
+      }
+
+      // Check if we entered a new object (using name instead of UUID)
+      if (objectName && lastHoveredRef.current !== objectName) {
+        import("../utils/AudioManager").then((module) => {
+          module.default.playHover();
+        });
+        lastHoveredRef.current = objectName;
+      }
     } else {
       document.body.style.cursor = 'auto';
+      lastHoveredRef.current = null;
     }
   };
 
