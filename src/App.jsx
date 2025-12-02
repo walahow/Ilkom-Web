@@ -1,38 +1,29 @@
-import React from "react";
-import "./App.css";
-// Impor komponen preloader dan Hero
-import LoadingOverlay from "./components/Loading/LoadingOverlay";
-import Hero from "./components/Hero.jsx";
-
+// src/App.jsx
+import React, { useEffect, useState } from "react";
+import DeskApp from "./DeskApp.jsx";
+import AppWan from "./Appwan.jsx";
 
 function App() {
-  React.useEffect(() => {
-    const handleInteraction = () => {
-      import("./utils/AudioManager").then((module) => {
-        module.default.startBGM();
-      });
-      window.removeEventListener("click", handleInteraction);
-      window.removeEventListener("keydown", handleInteraction);
+  // kalau ada hash (#/home, #/visimisi, dll) -> AppWan
+  // kalau tidak ada hash -> DeskApp (meja 3D)
+  const [mode, setMode] = useState(() =>
+    window.location.hash.startsWith("#/") ? "appwan" : "desk"
+  );
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setMode(window.location.hash.startsWith("#/") ? "appwan" : "desk");
     };
 
-    window.addEventListener("click", handleInteraction);
-    window.addEventListener("keydown", handleInteraction);
-
-    return () => {
-      window.removeEventListener("click", handleInteraction);
-      window.removeEventListener("keydown", handleInteraction);
-    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  return (
-    <>
-      <LoadingOverlay
-        logoSrc="/Lambang_Universitas_Negeri_Medan.png"
-      />
+  if (mode === "appwan") {
+    return <AppWan />;
+  }
 
-      <Hero />
-    </>
-  );
+  return <DeskApp />;
 }
 
 export default App;

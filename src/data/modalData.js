@@ -1,7 +1,7 @@
 const modalData = {
     LaptopBase: {
         title: "LAPTOPPPP",
-        description: "Laptop ini adalah gerbang utama interaksi digital. \n\nMenampilkan visualisasi data real-time dan antarmuka sistem yang responsif. Teknologi layar sentuh kapasitif dengan refresh rate tinggi memastikan pengalaman pengguna yang mulus."
+        description: "Laptop ini adalah gerbang utama interaksi digital. \n\nMenampilkan visualisasi data real-time dan antarmuka sistem yang responsif. Teknologi layar sentuh kapasitif dengan refresh rate tinggi memastikan pengalaman pengguna yang mulus ."
     },
     Mug: {
         title: "COFFEE FUEL",
