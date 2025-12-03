@@ -21,7 +21,7 @@ const ModalOverlay = ({ title, description, onClose }) => {
   // Deteksi jenis modal dari judul
   const isLaptopModal = upperTitle.includes("LAPTOP");          // LaptopBase
   const isBookModal = upperTitle.includes("KNOWLEDGE BASE");    // BookMeme
-  const isPosterModal = upperTitle.includes("WALL ART");        // Poster
+  const isPosterModal = upperTitle.includes("VISI MISI");        // Poster
   const isMugModal = upperTitle.includes("COFFEE");             // Mug
   const isArduinoModal = upperTitle.includes("ARDUINO");        // node_id293_Material_258_0
 
@@ -257,7 +257,7 @@ const ModalOverlay = ({ title, description, onClose }) => {
               {/* Laptop → Halaman Utama */}
               {isLaptopModal && (
                 <button
-                  onClick={() => handleNavigate("#/home")}
+                  onClick={() => handleNavigate("#/sejarah")}
                   onMouseEnter={() => setIsMainHovered(true)}
                   onMouseLeave={() => setIsMainHovered(false)}
                   className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
@@ -282,7 +282,7 @@ const ModalOverlay = ({ title, description, onClose }) => {
                     [
                   </span>
                   <HoverScrambleText
-                    text="HALAMAN UTAMA"
+                    text="SEJARAH"
                     trigger={isMainHovered}
                   />
                   <span
@@ -337,7 +337,7 @@ const ModalOverlay = ({ title, description, onClose }) => {
               {/* Poster → Sejarah */}
               {isPosterModal && (
                 <button
-                  onClick={() => handleNavigate("#/sejarah")}
+                  onClick={() => handleNavigate("#/visimisi")}
                   onMouseEnter={() => setIsMainHovered(true)}
                   onMouseLeave={() => setIsMainHovered(false)}
                   className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
@@ -362,7 +362,7 @@ const ModalOverlay = ({ title, description, onClose }) => {
                     [
                   </span>
                   <HoverScrambleText
-                    text="SEJARAH"
+                    text="VISI MISI"
                     trigger={isMainHovered}
                   />
                   <span
@@ -414,10 +414,10 @@ const ModalOverlay = ({ title, description, onClose }) => {
                 </button>
               )}
 
-              {/* Arduino (node_id293...) → Berita Kampus juga */}
+              {/* Arduino (node_id293...) → struktur */}
               {isArduinoModal && (
                 <button
-                  onClick={() => handleNavigate("#/berita")}
+                  onClick={() => handleNavigate("#/strukturorganisasi")}
                   onMouseEnter={() => setIsMainHovered(true)}
                   onMouseLeave={() => setIsMainHovered(false)}
                   className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
@@ -442,7 +442,7 @@ const ModalOverlay = ({ title, description, onClose }) => {
                     [
                   </span>
                   <HoverScrambleText
-                    text="BERITA KAMPUS"
+                    text="STRUKTUR ORGANISASI"
                     trigger={isMainHovered}
                   />
                   <span
