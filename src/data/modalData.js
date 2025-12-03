@@ -12,7 +12,7 @@ const modalData = {
         description: "Dokumentasi fisik dan referensi teknis. \n\nMeskipun era digital mendominasi, buku fisik tetap menjadi sumber kebenaran yang tak tergantikan saat internet mati atau Stack Overflow down."
     },
     Poster: {
-        title: "WALL ART",
+        title: "Visi Misi",
         description: "Dekorasi dinding yang memberikan inspirasi visual. \n\nDesain minimalis dengan sentuhan futuristik, merefleksikan visi dan misi program studi dalam bentuk seni grafis."
     },
     node_id293_Material_258_0: {

@@ -48,6 +48,10 @@ export const PARTICLE_CONFIG = {
     node_id293_Material_258_0: {
         count: 30,
         distributionScale: 1.0
+    },
+    Poster: {
+        count: 300,
+        emissiveIntensity: 5.0
     }
 
 };

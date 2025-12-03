@@ -10,7 +10,7 @@ import useParticleHover from "./particles/useParticleHover";
 import GlitchController from "./effects/GlitchController";
 
 // --- KONFIGURASI ---
-const CLICKABLE_OBJECTS = ["LaptopBase", "Mug", "BookMeme", "node_id293_Material_258_0"];
+const CLICKABLE_OBJECTS = ["LaptopBase", "Mug", "BookMeme", "node_id293_Material_258_0", "Poster"];
 const USE_BBOX_FOR = [""];
 const DEBUG_SHOW_CLICKABLE_AREAS = false; // Set true jika ingin debug hitbox
 
