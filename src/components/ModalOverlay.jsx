@@ -19,11 +19,11 @@ const ModalOverlay = ({ title, description, onClose }) => {
   const upperTitle = String(title).toUpperCase();
 
   // Deteksi jenis modal dari judul
-  const isLaptopModal = upperTitle.includes("LAPTOP");          // LaptopBase
-  const isBookModal = upperTitle.includes("KNOWLEDGE BASE");    // BookMeme
-  const isPosterModal = upperTitle.includes("VISI MISI");        // Poster
-  const isMugModal = upperTitle.includes("COFFEE");             // Mug
-  const isArduinoModal = upperTitle.includes("ARDUINO");        // node_id293_Material_258_0
+  const isLaptopModal = upperTitle.includes("SEJARAH");          // LaptopBase
+  const isBookModal = upperTitle.includes("PROFIL DOSEN");    // BookMeme
+  const isPosterModal = upperTitle.includes("VISI");        // Poster
+  const isMugModal = upperTitle.includes("BERITA");             // Mug
+  const isArduinoModal = upperTitle.includes("STRUKTUR");        // node_id293_Material_258_0
 
   useEffect(() => {
     import("../utils/AudioManager").then((module) =>
@@ -248,213 +248,213 @@ const ModalOverlay = ({ title, description, onClose }) => {
             isPosterModal ||
             isMugModal ||
             isArduinoModal) && (
-            <div
-              style={{
-                marginTop: "3rem",
-                width: "100%",
-              }}
-            >
-              {/* Laptop → Halaman Utama */}
-              {isLaptopModal && (
-                <button
-                  onClick={() => handleNavigate("#/sejarah")}
-                  onMouseEnter={() => setIsMainHovered(true)}
-                  onMouseLeave={() => setIsMainHovered(false)}
-                  className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "rgba(255, 255, 255, 0.7)",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    fontFamily: '"IBM Plex Mono", monospace',
-                    fontSize: "1rem",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
+              <div
+                style={{
+                  marginTop: "3rem",
+                  width: "100%",
+                }}
+              >
+                {/* Laptop → Halaman Utama */}
+                {isLaptopModal && (
+                  <button
+                    onClick={() => handleNavigate("#/sejarah")}
+                    onMouseEnter={() => setIsMainHovered(true)}
+                    onMouseLeave={() => setIsMainHovered(false)}
+                    className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "rgba(255, 255, 255, 0.7)",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                      fontFamily: '"IBM Plex Mono", monospace',
+                      fontSize: "1rem",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
                   >
-                    [
-                  </span>
-                  <HoverScrambleText
-                    text="SEJARAH"
-                    trigger={isMainHovered}
-                  />
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
-                  >
-                    ]
-                  </span>
-                </button>
-              )}
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      [
+                    </span>
+                    <HoverScrambleText
+                      text="SEJARAH"
+                      trigger={isMainHovered}
+                    />
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      ]
+                    </span>
+                  </button>
+                )}
 
-              {/* BookMeme → Profil Dosen */}
-              {isBookModal && (
-                <button
-                  onClick={() => handleNavigate("#/dosen")}
-                  onMouseEnter={() => setIsMainHovered(true)}
-                  onMouseLeave={() => setIsMainHovered(false)}
-                  className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "rgba(255, 255, 255, 0.7)",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    fontFamily: '"IBM Plex Mono", monospace',
-                    fontSize: "1rem",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
+                {/* BookMeme → Profil Dosen */}
+                {isBookModal && (
+                  <button
+                    onClick={() => handleNavigate("#/dosen")}
+                    onMouseEnter={() => setIsMainHovered(true)}
+                    onMouseLeave={() => setIsMainHovered(false)}
+                    className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "rgba(255, 255, 255, 0.7)",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                      fontFamily: '"IBM Plex Mono", monospace',
+                      fontSize: "1rem",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
                   >
-                    [
-                  </span>
-                  <HoverScrambleText
-                    text="PROFIL DOSEN"
-                    trigger={isMainHovered}
-                  />
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
-                  >
-                    ]
-                  </span>
-                </button>
-              )}
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      [
+                    </span>
+                    <HoverScrambleText
+                      text="PROFIL DOSEN"
+                      trigger={isMainHovered}
+                    />
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      ]
+                    </span>
+                  </button>
+                )}
 
-              {/* Poster → Sejarah */}
-              {isPosterModal && (
-                <button
-                  onClick={() => handleNavigate("#/visimisi")}
-                  onMouseEnter={() => setIsMainHovered(true)}
-                  onMouseLeave={() => setIsMainHovered(false)}
-                  className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "rgba(255, 255, 255, 0.7)",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    fontFamily: '"IBM Plex Mono", monospace',
-                    fontSize: "1rem",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
+                {/* Poster → Sejarah */}
+                {isPosterModal && (
+                  <button
+                    onClick={() => handleNavigate("#/visimisi")}
+                    onMouseEnter={() => setIsMainHovered(true)}
+                    onMouseLeave={() => setIsMainHovered(false)}
+                    className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "rgba(255, 255, 255, 0.7)",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                      fontFamily: '"IBM Plex Mono", monospace',
+                      fontSize: "1rem",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
                   >
-                    [
-                  </span>
-                  <HoverScrambleText
-                    text="VISI MISI"
-                    trigger={isMainHovered}
-                  />
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
-                  >
-                    ]
-                  </span>
-                </button>
-              )}
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      [
+                    </span>
+                    <HoverScrambleText
+                      text="VISI MISI"
+                      trigger={isMainHovered}
+                    />
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      ]
+                    </span>
+                  </button>
+                )}
 
-              {/* Mug → Berita Kampus */}
-              {isMugModal && (
-                <button
-                  onClick={() => handleNavigate("#/berita")}
-                  onMouseEnter={() => setIsMainHovered(true)}
-                  onMouseLeave={() => setIsMainHovered(false)}
-                  className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "rgba(255, 255, 255, 0.7)",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    fontFamily: '"IBM Plex Mono", monospace',
-                    fontSize: "1rem",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
+                {/* Mug → Berita Kampus */}
+                {isMugModal && (
+                  <button
+                    onClick={() => handleNavigate("#/berita")}
+                    onMouseEnter={() => setIsMainHovered(true)}
+                    onMouseLeave={() => setIsMainHovered(false)}
+                    className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "rgba(255, 255, 255, 0.7)",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                      fontFamily: '"IBM Plex Mono", monospace',
+                      fontSize: "1rem",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
                   >
-                    [
-                  </span>
-                  <HoverScrambleText
-                    text="BERITA KAMPUS"
-                    trigger={isMainHovered}
-                  />
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
-                  >
-                    ]
-                  </span>
-                </button>
-              )}
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      [
+                    </span>
+                    <HoverScrambleText
+                      text="BERITA KAMPUS"
+                      trigger={isMainHovered}
+                    />
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      ]
+                    </span>
+                  </button>
+                )}
 
-              {/* Arduino (node_id293...) → struktur */}
-              {isArduinoModal && (
-                <button
-                  onClick={() => handleNavigate("#/strukturorganisasi")}
-                  onMouseEnter={() => setIsMainHovered(true)}
-                  onMouseLeave={() => setIsMainHovered(false)}
-                  className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "rgba(255, 255, 255, 0.7)",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    fontFamily: '"IBM Plex Mono", monospace',
-                    fontSize: "1rem",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
+                {/* Arduino (node_id293...) → struktur */}
+                {isArduinoModal && (
+                  <button
+                    onClick={() => handleNavigate("#/strukturorganisasi")}
+                    onMouseEnter={() => setIsMainHovered(true)}
+                    onMouseLeave={() => setIsMainHovered(false)}
+                    className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "rgba(255, 255, 255, 0.7)",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                      fontFamily: '"IBM Plex Mono", monospace',
+                      fontSize: "1rem",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
                   >
-                    [
-                  </span>
-                  <HoverScrambleText
-                    text="STRUKTUR ORGANISASI"
-                    trigger={isMainHovered}
-                  />
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ transition: "opacity 0.3s" }}
-                  >
-                    ]
-                  </span>
-                </button>
-              )}
-            </div>
-          )}
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      [
+                    </span>
+                    <HoverScrambleText
+                      text="STRUKTUR ORGANISASI"
+                      trigger={isMainHovered}
+                    />
+                    <span
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ transition: "opacity 0.3s" }}
+                    >
+                      ]
+                    </span>
+                  </button>
+                )}
+              </div>
+            )}
 
           {/* Footer / Decorative */}
           <div
