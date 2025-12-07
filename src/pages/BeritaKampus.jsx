@@ -1,4 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
+import SoundToggle from '../components/UI/SoundToggle';
+import { ScrambleText, HoverScrambleText } from '../components/UI/ScrambleText';
+import audioManager from '../utils/AudioManager';
 
 const newsItems = [
     {
@@ -50,6 +54,8 @@ const newsItems = [
 const BeritaKampus = () => {
     const [query, setQuery] = useState('');
     const [selected, setSelected] = useState(null);
+    const [isBackHovered, setIsBackHovered] = useState(false);
+    const [isCloseHovered, setIsCloseHovered] = useState(false);
 
     const filteredNews = useMemo(() => {
         if (!query.trim()) return newsItems;
@@ -62,8 +68,28 @@ const BeritaKampus = () => {
         );
     }, [query]);
 
+    // Play modal sound
+    useEffect(() => {
+        if (selected) {
+            audioManager.playModalOpen();
+        }
+    }, [selected]);
+
+    const handleBack = () => {
+        audioManager.playClick();
+        if (typeof window !== "undefined") {
+            try {
+                if (window.history && window.history.length > 1) {
+                    window.history.back();
+                    return;
+                }
+            } catch (e) { }
+            window.location.hash = "#/home";
+        }
+    };
+
     return (
-        <div className="glass-page news-page">
+        <div className="glass-page news-page" style={{ fontFamily: '"IBM Plex Mono", monospace' }}>
             <div className="glass-video-bg-wrapper">
                 <video autoPlay loop muted playsInline className="glass-video-bg">
                     <source src="/videos/background.mp4" type="video/mp4" />
@@ -71,6 +97,7 @@ const BeritaKampus = () => {
             </div>
             <div className="glass-background-grid"></div>
 
+            {/* Header Layer */}
             <div className="glass-header">
                 <div className="glass-header-left">
                     <img
@@ -83,18 +110,42 @@ const BeritaKampus = () => {
                     </div>
                 </div>
 
-                <h1 className="glass-title">Kampus News</h1>
+                <h1 className="glass-title">KAMPUS NEWS</h1>
 
-                <div className="glass-header-dots" aria-hidden>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+
+            </div>
+
+            {/* Back Button (Absolute Top Right) */}
+            <div style={{ position: 'absolute', top: '3rem', right: '3rem', zIndex: 100 }}>
+                <button
+                    onClick={handleBack}
+                    onMouseEnter={() => setIsBackHovered(true)}
+                    onMouseLeave={() => setIsBackHovered(false)}
+                    className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
+                    style={{
+                        background: "none",
+                        border: "none",
+                        color: "rgba(255, 255, 255, 0.7)",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "1rem",
+                        fontFamily: '"IBM Plex Mono", monospace',
+                        fontSize: "1rem",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                    }}
+                >
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ transition: "opacity 0.3s" }}>[</span>
+                    <HoverScrambleText text="KEMBALI" trigger={isBackHovered} />
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ transition: "opacity 0.3s" }}>]</span>
+                </button>
             </div>
 
             <section className="news-header">
                 <div>
                     <p className="news-subtitle">Berita Terkini</p>
+                    {/* Only main headlines might not need scramble if user just said 'modal news' needs it. Keeping standard for now. */}
                     <h2>Highlight Kampus & Prestasi</h2>
                     <p className="news-lead">
                         Kabarkan aktivitas terbaru seputar riset, prestasi, dan event yang memperkuat ekosistem
@@ -114,9 +165,17 @@ const BeritaKampus = () => {
                 </label>
             </section>
 
-            <div className="news-grid">
+            <div className="news-grid" style={{ marginBottom: '100px' }}>
                 {filteredNews.map((item) => (
-                    <article key={item.id} className="glass-panel news-card" onClick={() => setSelected(item)}>
+                    <article
+                        key={item.id}
+                        className="glass-panel news-card"
+                        onClick={() => {
+                            audioManager.playClick();
+                            setSelected(item);
+                        }}
+                        onMouseEnter={() => audioManager.playHover()}
+                    >
                         <div className="news-card-image">
                             <img src={item.image} alt={item.title} />
                             <span className="news-card-date">{item.date}</span>
@@ -139,51 +198,77 @@ const BeritaKampus = () => {
                 )}
             </div>
 
-            <button
-                className="glass-back-bottom"
-                onClick={() => {
-                    if (typeof window !== "undefined") {
-                        try {
-                            if (window.history && window.history.length > 1) {
-                                window.history.back();
-                                return;
-                            }
-                        } catch (e) {}
-                        window.location.hash = "#/home";
-                    }
-                }}
-                aria-label="Kembali"
-            >
-                Kembali
-            </button>
+            {/* Sound Toggle */}
+            <div style={{ position: 'fixed', bottom: '30px', left: '30px', zIndex: 100 }}>
+                <SoundToggle />
+            </div>
 
-            {selected && (
-                <div className="news-modal-overlay" role="dialog" aria-modal="true" onClick={() => setSelected(null)}>
-                    <div className="glass-panel news-modal" onClick={(e) => e.stopPropagation()}>
-                        <button className="news-modal-close" onClick={() => setSelected(null)} aria-label="Tutup detail">
-                            ×
-                        </button>
+            {/* Modal Overlay */}
+            <AnimatePresence>
+                {selected && (
+                    <div className="news-modal-overlay" role="dialog" aria-modal="true" onClick={() => setSelected(null)}>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ duration: 0.3 }}
+                            className="glass-panel news-modal"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                className="group flex items-center gap-3 text-white/70 hover:text-white transition-colors"
+                                onClick={() => {
+                                    audioManager.playClick();
+                                    setSelected(null);
+                                }}
+                                onMouseEnter={() => setIsCloseHovered(true)}
+                                onMouseLeave={() => setIsCloseHovered(false)}
+                                style={{
+                                    position: 'absolute',
+                                    top: '1.5rem',
+                                    right: '1.5rem',
+                                    background: "none",
+                                    border: "none",
+                                    color: "rgba(255, 255, 255, 0.7)",
+                                    cursor: "pointer",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "0.5rem",
+                                    fontFamily: '"IBM Plex Mono", monospace',
+                                    fontSize: "0.875rem",
+                                    letterSpacing: "0.1em",
+                                    textTransform: "uppercase",
+                                    zIndex: 10,
+                                }}
+                                aria-label="Tutup detail"
+                            >
+                                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ transition: "opacity 0.3s" }}>[</span>
+                                <HoverScrambleText text="CLOSE" trigger={isCloseHovered} />
+                                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ transition: "opacity 0.3s" }}>]</span>
+                            </button>
 
-                        <div className="news-modal-image">
-                            <img src={selected.image} alt={selected.title} />
-                            <div className="news-modal-meta">
-                                <span>📅 {selected.date}</span>
-                                <span>🏷 {selected.category}</span>
+                            <div className="news-modal-image">
+                                <img src={selected.image} alt={selected.title} />
+                                <div className="news-modal-meta">
+                                    <span>📅 <ScrambleText text={selected.date} delay={0.2} /></span>
+                                    <span>🏷 <ScrambleText text={selected.category} delay={0.3} /></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="news-modal-body">
-                            <h2>{selected.title}</h2>
-                            {selected.content.split('\n\n').map((para, idx) => (
-                                <p key={idx}>{para}</p>
-                            ))}
-                        </div>
+                            <div className="news-modal-body">
+                                <h2><ScrambleText text={selected.title} delay={0.1} /></h2>
+                                {selected.content.split('\n\n').map((para, idx) => (
+                                    <p key={idx}>
+                                        <ScrambleText text={para} delay={0.4 + (idx * 0.2)} duration={1} />
+                                    </p>
+                                ))}
+                            </div>
+                        </motion.div>
                     </div>
-                </div>
-            )}
+                )}
+            </AnimatePresence>
         </div>
     );
 };
 
 export default BeritaKampus;
-
