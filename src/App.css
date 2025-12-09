@@ -87,15 +87,15 @@ body {
 }
 
 .hero-logo {
-  width: clamp(54px, 8vw, 96px);
-  height: clamp(54px, 8vw, 96px);
+  width: clamp(48px, 5vw, 84px);
+  height: clamp(48px, 5vw, 84px);
   border-radius: 50%;
   filter: drop-shadow(0 0 14px rgba(0, 157, 10, 0.45));
 }
 
 .hero-title {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: clamp(24px, 5vw, 36px);
+  font-size: clamp(20px, 2.2vw, 36px);
   line-height: 1.1;
   color: #FFFFFF;
   font-weight: 700;
@@ -119,13 +119,13 @@ body {
 .hero-console {
   color: #009D0A;
   font-weight: 500;
-  font-size: clamp(14px, 2vw, 16px);
+  font-size: clamp(12px, 1.2vw, 16px);
 }
 
 .hero-paragraph {
   color: #FFFFFF;
   max-width: min(38ch, 90vw);
-  font-size: clamp(14px, 2vw, 16px);
+  font-size: clamp(12px, 1.2vw, 16px);
 }
 
 /* Glow Effects */

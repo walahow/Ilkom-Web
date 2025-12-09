@@ -98,25 +98,24 @@ const BeritaKampus = () => {
             <div className="glass-background-grid"></div>
 
             {/* Header Layer */}
-            <div className="glass-header">
-                <div className="glass-header-left">
-                    <img
-                        src="/Lambang_Universitas_Negeri_Medan.png"
-                        alt="Lambang Universitas Negeri Medan"
-                        className="glass-header-logo"
-                    />
-                    <div className="glass-header-text">
-                        Ilmu<br />Komputer
-                    </div>
+            {/* Header Layer */}
+            <div className="unified-header-logo-container">
+                <img
+                    src="/Lambang_Universitas_Negeri_Medan.png"
+                    alt="Lambang Universitas Negeri Medan"
+                    className="unified-header-logo"
+                />
+                <div className="unified-header-text">
+                    Ilmu<br />Komputer
                 </div>
+            </div>
 
-                <h1 className="glass-title">KAMPUS NEWS</h1>
-
-
+            <div className="unified-header-title-center">
+                <h1 className="unified-glass-title">KAMPUS NEWS</h1>
             </div>
 
             {/* Back Button (Absolute Top Right) */}
-            <div style={{ position: 'absolute', top: '3rem', right: '3rem', zIndex: 100 }}>
+            <div className="unified-back-button-container">
                 <button
                     onClick={handleBack}
                     onMouseEnter={() => setIsBackHovered(true)}
@@ -142,7 +141,7 @@ const BeritaKampus = () => {
                 </button>
             </div>
 
-            <section className="news-header">
+            <section className="news-header" style={{ marginTop: '120px' }}>
                 <div>
                     <p className="news-subtitle">Berita Terkini</p>
                     {/* Only main headlines might not need scramble if user just said 'modal news' needs it. Keeping standard for now. */}

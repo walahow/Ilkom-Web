@@ -43,25 +43,25 @@ const StrukturOrganisasi = () => {
             {/* Header Layer */}
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 10 }}>
                 {/* Logo - Top Left */}
-                <div style={{ position: 'absolute', top: '2rem', left: '2rem', pointerEvents: 'auto', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div className="unified-header-logo-container">
                     <img
                         src="/Lambang_Universitas_Negeri_Medan.png"
                         alt="Logo UNIMED"
-                        style={{ width: '64px', height: '64px', borderRadius: '50%', filter: 'drop-shadow(0 0 14px rgba(0, 157, 10, 0.45))' }}
+                        className="unified-header-logo"
                     />
-                    <div style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '24px', fontWeight: 700, lineHeight: 1.1, color: '#FFFFFF', textShadow: '0 0 12px rgba(255, 255, 255, 0.35)' }}>
+                    <div className="unified-header-text">
                         <div>Ilmu</div>
                         <div>Komputer</div>
                     </div>
                 </div>
 
                 {/* Title - Center Top */}
-                <div style={{ position: 'absolute', top: '3rem', left: '50%', transform: 'translateX(-50%)', textAlign: 'center' }}>
-                    <h1 className="glass-title" style={{ margin: 0, fontSize: '2.5rem', textShadow: '0 0 20px rgba(255,255,255,0.2)' }}>STRUKTUR ORGANISASI</h1>
+                <div className="unified-header-title-center">
+                    <h1 className="unified-glass-title">STRUKTUR ORGANISASI</h1>
                 </div>
 
                 {/* Back Button - Top Right */}
-                <div style={{ position: 'absolute', top: '3rem', right: '3rem', pointerEvents: 'auto' }}>
+                <div className="unified-back-button-container">
                     <button
                         onClick={handleBack}
                         onMouseEnter={() => setIsBackHovered(true)}

@@ -51,25 +51,27 @@ const Sejarah = () => {
             <div style={{ position: 'relative', width: '100%', height: '100%', zIndex: 20 }}>
 
                 {/* 1. Logo Left Top */}
-                <div style={{ position: 'fixed', top: '2rem', left: '2rem', zIndex: 1000, pointerEvents: 'auto', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                {/* 1. Logo Left Top */}
+                <div className="unified-header-logo-container">
                     <img
                         src="/Lambang_Universitas_Negeri_Medan.png"
                         alt="Logo UNIMED"
-                        style={{ width: '64px', height: '64px', borderRadius: '50%', filter: 'drop-shadow(0 0 14px rgba(0, 157, 10, 0.45))' }}
+                        className="unified-header-logo"
                     />
-                    <div style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '24px', fontWeight: 700, lineHeight: 1.1, color: '#FFFFFF', textShadow: '0 0 12px rgba(255, 255, 255, 0.35)' }}>
+                    <div className="unified-header-text">
                         <div>Ilmu</div>
                         <div>Komputer</div>
                     </div>
                 </div>
 
                 {/* 2. Title Centered Top */}
-                <div style={{ position: 'fixed', top: '3rem', left: '50%', transform: 'translateX(-50%)', zIndex: 1000, pointerEvents: 'none' }}>
-                    <h1 className="glass-title" style={{ margin: 0, pointerEvents: 'none' }}>SEJARAH</h1>
+                {/* 2. Title Centered Top */}
+                <div className="unified-header-title-center">
+                    <h1 className="unified-glass-title">SEJARAH</h1>
                 </div>
 
                 {/* 3. Close/Back Button Right Top */}
-                <div style={{ position: 'fixed', top: '3rem', right: '3rem', zIndex: 10000 }}>
+                <div className="unified-back-button-container">
                     <button
                         onClick={handleBack}
                         onMouseEnter={() => setIsBackHovered(true)}

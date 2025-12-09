@@ -47,64 +47,70 @@
     z-index: 1;
 }
 
-.glass-header {
-    position: relative;
+/* Unified Header Styles */
+.glass-header-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.unified-header-logo-container {
+    position: fixed;
+    top: clamp(16px, 3vh, 32px);
+    left: clamp(16px, 3vw, 32px);
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-    z-index: 10;
+    gap: 16px;
+    z-index: 1000;
+    pointer-events: auto;
 }
 
-.glass-header-left {
-    position: absolute;
-    left: clamp(1rem, 3vw, 2.5rem);
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
+.unified-header-logo {
+    width: clamp(48px, 5vw, 84px);
+    height: clamp(48px, 5vw, 84px);
+    border-radius: 50%;
+    filter: drop-shadow(0 0 14px rgba(0, 157, 10, 0.45));
 }
 
-.glass-header-logo {
-    width: clamp(56px, 7vw, 84px);
-    height: auto;
-    border-radius: 6px;
-    display: block;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
-}
-
-.glass-header-text {
-    color: #fff;
+.unified-header-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(20px, 2.2vw, 36px);
     font-weight: 700;
-    font-size: clamp(1.1rem, 2vw, 1.8rem);
     line-height: 1.1;
-    text-shadow: 0 0 12px rgba(0, 255, 100, 0.35);
+    color: #FFFFFF;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
 }
 
-.glass-title {
+.unified-header-title-center {
+    position: fixed;
+    top: clamp(24px, 4vh, 48px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    text-align: center;
+    pointer-events: none;
+    width: 100%;
+}
+
+.unified-glass-title {
+    font-family: 'IBM Plex Mono', monospace;
     color: #fff;
-    font-size: clamp(2rem, 6vw, 5rem);
+    font-size: clamp(24px, 4vw, 48px);
+    /* Adjusted to be slightly larger than logo text but responsive */
     letter-spacing: 2px;
     margin: 0;
-    animation: textGlow 3s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
-.glass-header-dots {
-    position: absolute;
-    right: clamp(1rem, 3vw, 2.5rem);
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    gap: 5px;
-}
-
-.glass-header-dots span {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 1px solid var(--color-primary);
+.unified-back-button-container {
+    position: fixed;
+    top: clamp(24px, 4vh, 48px);
+    right: clamp(16px, 3vw, 48px);
+    z-index: 10000;
+    pointer-events: auto;
 }
 
 .glass-back-bottom {
@@ -714,15 +720,31 @@
 }
 
 @keyframes float {
-    0% { transform: translate(-50%, -50%) translateY(0); }
-    50% { transform: translate(-50%, -50%) translateY(-15px); }
-    100% { transform: translate(-50%, -50%) translateY(0); }
+    0% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) translateY(-15px);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
 }
 
 @keyframes textGlow {
-    0% { text-shadow: 0 0 6px rgba(255, 255, 255, 0.08); }
-    50% { text-shadow: 0 0 18px rgba(255, 255, 255, 0.18); }
-    100% { text-shadow: 0 0 6px rgba(255, 255, 255, 0.08); }
+    0% {
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.08);
+    }
+
+    50% {
+        text-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+    }
+
+    100% {
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.08);
+    }
 }
 
 @media (max-width: 900px) {
@@ -798,4 +820,3 @@
         width: 100%;
     }
 }
-
