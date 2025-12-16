@@ -13,4 +13,7 @@ git clone https://github.com/walahow/Ilkom-Web.git
 cd Ilkom-Web
 
 npm install
+
 npm run dev
+
+https://ilkom-web.vercel.app/
